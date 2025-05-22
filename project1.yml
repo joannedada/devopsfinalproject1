@@ -1,0 +1,9 @@
+- hosts: webserver
+  become: yes
+  tasks:
+    - name: Copy WAR file to Tomcat
+      copy:
+        src: "target/WebAppCal-1.3.5.war"
+        dest: "/opt/tomcat/webapps/"
+        owner: ec2-user
+        group: ec2-user
