@@ -19,6 +19,8 @@ pipeline {
         }
         stage('Deploy Container') {
             steps {
+                sh 'docker stop calculator-app || true'
+                sh 'docker rm calculator-app || true'
                 sh 'docker run -d -p 8081:8080 --name calculator-app joannedada/calculator'
             }
         }
