@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh 'docker stop calculator-app || true'
                 sh 'docker rm calculator-app || true'
-                sh 'docker run -d -p 8080:8080 --name calculator-app joannedada/calculator:${env.BUILD_NUMBER}'
+                sh 'docker run -d -p 8080:8081 --name calculator-app joannedada/calculator:${env.BUILD_NUMBER}'
             }
         }
     }
