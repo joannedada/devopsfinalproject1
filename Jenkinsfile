@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Deploy Container') {
             steps {
-                sh 'docker run -d -p 8080:8081 --name calculator-app joannedada/calculator'
+                sh 'docker run -d -p 8081:8080 --name calculator-app joannedada/calculator'
             }
         }
     }
