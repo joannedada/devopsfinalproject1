@@ -1,4 +1,5 @@
 #!/bin/bash
+cd ansible
 
 # Generate dynamic inventory
 python3 -c "
