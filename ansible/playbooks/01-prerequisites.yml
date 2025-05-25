@@ -1,0 +1,20 @@
+---
+- name: Install Kubernetes tools
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install AWS CLI
+      ansible.builtin.pip:
+        name: awscli
+
+    - name: Install kOps
+      ansible.builtin.get_url:
+        url: "https://github.com/kubernetes/kops/releases/download/v1.28.1/kops-linux-amd64"
+        dest: "/usr/local/bin/kops"
+        mode: "0755"
+
+    - name: Install kubectl
+      ansible.builtin.get_url:
+        url: "https://dl.k8s.io/release/v1.28.2/bin/linux/amd64/kubectl"
+        dest: "/usr/local/bin/kubectl"
+        mode: "0755"

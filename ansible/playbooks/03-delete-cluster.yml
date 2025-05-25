@@ -1,0 +1,15 @@
+---
+- name: Delete Kubernetes cluster
+  hosts: localhost
+  connection: local
+  vars:
+    cluster_name: "myk8scluster.example.com"
+    state_store: "s3://kops-state-store"
+
+  tasks:
+    - name: Delete cluster
+      ansible.builtin.shell: |
+        kops delete cluster \
+        --name={{ cluster_name }} \
+        --state={{ state_store }} \
+        --yes
