@@ -5,12 +5,12 @@
     - name: Create cluster configuration
       ansible.builtin.shell: |
         kops create cluster \
-        --name="prod-cluster.k8s.com" \
+        --name="jocluster" \
         --state="s3://kops-state-20250525083938874700000001" \
         --zones="us-east-1a,us-east-1b" \
         --node-count=2 \
-        --node-size=t3.medium \
-        --master-size=t3.medium \
+        --node-size=t2.micro \
+        --master-size=t2.micro \
         --yes
       args:
         executable: /bin/bash
@@ -18,7 +18,7 @@
     - name: Validate cluster
       ansible.builtin.shell: |
         kops validate cluster \
-        --name="prod-cluster.k8s.com" \
+        --name="jocluster" \
         --state="s3://kops-state-20250525083938874700000001" \
         --wait 10m
       args:
