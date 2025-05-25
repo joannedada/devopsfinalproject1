@@ -39,5 +39,5 @@ resource "aws_instance" "workers" {
 
 # S3 bucket for kOps state
 resource "aws_s3_bucket" "kops_state" {
-  bucket_prefix = "kops-state-"
+  bucket = "jo-kops-state"
 }
