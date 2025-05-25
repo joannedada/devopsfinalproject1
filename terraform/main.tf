@@ -19,6 +19,7 @@ resource "aws_subnet" "public" {
 resource "aws_instance" "control_plane" {
   ami           = "ami-0c02fb55956c7d316" # Amazon Linux 2023
   instance_type = "t2.micro"
+  key_name      = "jonewkeypair"
   subnet_id     = aws_subnet.public[0].id
   tags = {
     Name = "k8s-control"
@@ -29,6 +30,7 @@ resource "aws_instance" "workers" {
   count         = 2
   ami           = "ami-0c02fb55956c7d316"
   instance_type = "t2.micro"
+  key_name      = "jonewkeypair"
   subnet_id     = aws_subnet.public[count.index].id
   tags = {
     Name = "k8s-worker-${count.index + 1}"
