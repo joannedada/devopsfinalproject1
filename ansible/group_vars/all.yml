@@ -1,0 +1,8 @@
+---
+# From terraform_outputs.json
+kops_state_bucket: "kops-state-20250525083938874700000001"
+worker_nodes: ["44.198.158.240", "3.83.146.115"]
+
+# Customizable variables
+cluster_name: "prod-cluster"
+availability_zones: "us-east-1a,us-east-1b"

@@ -2,18 +2,19 @@
 - name: Create HA Kubernetes cluster
   hosts: control_plane
   vars:
-    cluster_name: "{{ hostvars['localhost']['terraform_outputs']['cluster_name'] }}.example.com"
-    state_store: "s3://{{ hostvars['localhost']['terraform_outputs']['kops_state_bucket'] }}"
+    cluster_name: "{{ cluster_name | default('prod-cluster') }}.k8s.com"
+    state_store: "s3://{{ kops_state_bucket }}"
+    zones: "{{ availability_zones | default('us-east-1a,us-east-1b') }}"
   tasks:
     - name: Create cluster configuration
       ansible.builtin.shell: |
         kops create cluster \
         --name={{ cluster_name }} \
         --state={{ state_store }} \
-        --zones={{ terraform_outputs.availability_zones | join(',') }} \
-        --node-count=2 \
-        --node-size=t2.micro \
-        --master-size=t2.micro \
+        --zones={{ zones }} \
+        --node-count={{ worker_nodes | length }} \
+        --node-size=t3.medium \
+        --master-size=t3.medium \
         --yes
       register: cluster_creation
 
