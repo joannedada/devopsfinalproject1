@@ -1,26 +1,25 @@
 ---
 - name: Create HA Kubernetes cluster
   hosts: control_plane
-  vars:
-    cluster_name: "{{ cluster_name | default('prod-cluster') }}.k8s.com"
-    state_store: "s3://{{ kops_state_bucket }}"
-    zones: "{{ availability_zones | default('us-east-1a,us-east-1b') }}"
   tasks:
     - name: Create cluster configuration
       ansible.builtin.shell: |
         kops create cluster \
-        --name={{ cluster_name }} \
-        --state={{ state_store }} \
-        --zones={{ zones }} \
-        --node-count={{ worker_nodes | length }} \
+        --name="prod-cluster.k8s.com" \
+        --state="s3://kops-state-20250525083938874700000001" \
+        --zones="us-east-1a,us-east-1b" \
+        --node-count=2 \
         --node-size=t3.medium \
         --master-size=t3.medium \
         --yes
-      register: cluster_creation
+      args:
+        executable: /bin/bash
 
     - name: Validate cluster
       ansible.builtin.shell: |
         kops validate cluster \
-        --name={{ cluster_name }} \
-        --state={{ state_store }} \
+        --name="prod-cluster.k8s.com" \
+        --state="s3://kops-state-20250525083938874700000001" \
         --wait 10m
+      args:
+        executable: /bin/bash
