@@ -15,7 +15,7 @@ export MASTER_SIZE="t2.micro"
 kops create cluster \
   --name=${NAME} \
   --cloud=aws \
-  --vpc=${VPC_ID} \
+  --network-id=${VPC_ID} \
   --subnets=${SUBNET_IDS} \
   --zones=${ZONES} \
   --node-count=${NODE_COUNT} \
