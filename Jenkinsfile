@@ -51,7 +51,6 @@ pipeline {
                     ).trim()
                     
                     echo "Application available at: http://${LB_DNS}"
-                    sh "curl -v http://${LB_DNS}"
                 }
             }
         }
