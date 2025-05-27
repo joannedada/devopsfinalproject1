@@ -30,10 +30,10 @@ pipeline {
                 script {
                     // Apply Kubernetes manifests
                     sh """
-                        kubectl apply -f kubernetes/namespace.yaml
-                        sed -i 's|IMAGE_TAG|${env.BUILD_ID}|g' kubernetes/deployment.yaml
-                        kubectl apply -f kubernetes/deployment.yaml
-                        kubectl apply -f kubernetes/service.yaml
+                        kubectl apply -f kubernetes/namespace.yml
+                        sed -i 's|IMAGE_TAG|${env.BUILD_ID}|g' kubernetes/deployment.yml
+                        kubectl apply -f kubernetes/deployment.yml
+                        kubectl apply -f kubernetes/service.yml
                     """
                     
                     // Verify deployment
