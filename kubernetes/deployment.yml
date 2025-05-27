@@ -26,7 +26,7 @@ spec:
               topologyKey: "topology.kubernetes.io/zone"
       containers:
       - name: calculator
-        image: joannedada/calculator:${BUILD_ID}
+        image: joannedada/calculator:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
