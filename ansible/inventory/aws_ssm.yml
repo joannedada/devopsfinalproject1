@@ -1,0 +1,10 @@
+plugin: aws_ssm
+regions:
+  - us-east-1
+filters:
+  tag:Name: "*jocluster*"  # Filter instances by tag
+hostnames:
+  - ip-address             # Use private IP as hostname
+  - private-dns-name       # Fallback to DNS name
+compose:
+  ansible_user: "'ec2-user'"  # Ensures ec2-user is used
