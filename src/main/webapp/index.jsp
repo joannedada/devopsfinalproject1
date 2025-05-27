@@ -177,7 +177,7 @@
                   
                   <label class="operation-option">
                       <input type="radio" name="r1" value="sub"> 
-                      Subtraction (−)
+                      Subtraction (-)
                   </label>
                   
                   <label class="operation-option">
