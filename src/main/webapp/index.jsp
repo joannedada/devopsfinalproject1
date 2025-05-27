@@ -172,22 +172,22 @@
             <div class="operations-container">
                 <label class="operation-option">
                     <input type="radio" name="r1" value="add" checked> 
-                    Addition (+)
+                    Addition
                 </label>
                 
                 <label class="operation-option">
                     <input type="radio" name="r1" value="sub"> 
-                    Subtraction (-)
+                    Subtraction
                 </label>
                 
                 <label class="operation-option">
                     <input type="radio" name="r1" value="mul"> 
-                    Multiplication (×)
+                    Multiplication
                 </label>
                 
                 <label class="operation-option">
                     <input type="radio" name="r1" value="div"> 
-                    Division (÷)
+                    Division
                 </label>
             </div>
             
