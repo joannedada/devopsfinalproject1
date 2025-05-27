@@ -8,8 +8,8 @@ export VPC_ID="vpc-0b83072163b76b36d"            # Your existing VPC ID
 export SUBNET_IDS="subnet-01cea87dd19759ed5,subnet-0ce082831f800c2ed"  # Subnets in the VPC
 export ZONES="us-east-1a,us-east-1b"    # Must match subnet AZs
 export NODE_COUNT="2"
-export NODE_SIZE="t2.micro"
-export MASTER_SIZE="t2.micro"
+export NODE_SIZE="t3.medium"
+export MASTER_SIZE="t3.medium"
 
 # --- Create Cluster ---
 kops create cluster \
