@@ -1,27 +1,58 @@
 pipeline {
     agent any
-    triggers {
-        pollSCM('* * * * *') 
+    environment {
+        DOCKER_IMAGE = "joannedada/calculator"
+        KUBE_NAMESPACE = "calculator-app"
+        // Store Docker Hub credentials in Jenkins Credentials Store (ID: 'dockerhub-creds')
     }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'project-2', 
+                git branch: 'project-3', 
                 url: 'https://github.com/joannedada/devopsfinalproject1.git'
             }
         }
-        stage('Build Docker Image') {
+
+        stage('Build & Push to Docker Hub') {
             steps {
                 script {
-                    docker.build("joannedada/calculator")
+                    docker.build("${DOCKER_IMAGE}:${env.BUILD_ID}")
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-creds') {
+                        docker.image("${DOCKER_IMAGE}:${env.BUILD_ID}").push()
+                        docker.image("${DOCKER_IMAGE}:${env.BUILD_ID}").push('latest')  // Optional: Also tag as latest
+                    }
                 }
             }
         }
-        stage('Deploy Container') {
+
+        stage('Deploy to Kubernetes') {
             steps {
-                sh 'docker stop calculator-app || true'
-                sh 'docker rm calculator-app || true'
-                sh 'docker run -d -p 8081:8080 --name calculator-app joannedada/calculator'
+                script {
+                    // Apply Kubernetes manifests
+                    sh """
+                        kubectl apply -f kubernetes/namespace.yaml
+                        sed -i 's|IMAGE_TAG|${env.BUILD_ID}|g' kubernetes/deployment.yaml
+                        kubectl apply -f kubernetes/deployment.yaml
+                        kubectl apply -f kubernetes/service.yaml
+                    """
+                    
+                    // Verify deployment
+                    sh "kubectl rollout status deployment/calculator -n ${KUBE_NAMESPACE}"
+                }
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                script {
+                    def LB_DNS = sh(
+                        script: "kubectl get svc calculator-service -n ${KUBE_NAMESPACE} -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'",
+                        returnStdout: true
+                    ).trim()
+                    
+                    echo "Application available at: http://${LB_DNS}"
+                    sh "curl -v http://${LB_DNS}"
+                }
             }
         }
     }
