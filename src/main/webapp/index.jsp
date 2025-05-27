@@ -170,26 +170,26 @@
             </div>
             
             <div class="operations-container">
-                <label class="operation-option">
-                    <input type="radio" name="r1" value="add" checked> 
-                    Addition
-                </label>
-                
-                <label class="operation-option">
-                    <input type="radio" name="r1" value="sub"> 
-                    Subtraction
-                </label>
-                
-                <label class="operation-option">
-                    <input type="radio" name="r1" value="mul"> 
-                    Multiplication
-                </label>
-                
-                <label class="operation-option">
-                    <input type="radio" name="r1" value="div"> 
-                    Division
-                </label>
-            </div>
+                  <label class="operation-option">
+                      <input type="radio" name="r1" value="add" checked> 
+                      Addition (+)
+                  </label>
+                  
+                  <label class="operation-option">
+                      <input type="radio" name="r1" value="sub"> 
+                      Subtraction (−)
+                  </label>
+                  
+                  <label class="operation-option">
+                      <input type="radio" name="r1" value="mul"> 
+                      Multiplication (&times;)
+                  </label>
+                  
+                  <label class="operation-option">
+                      <input type="radio" name="r1" value="div"> 
+                      Division (&divide;)
+                  </label>
+              </div>
             
             <button type="submit">Calculate</button>
         </form>
